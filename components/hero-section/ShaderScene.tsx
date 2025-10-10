@@ -1,6 +1,6 @@
-"use client";
-import { useEffect, useMemo, useRef, useState } from "react";
-import * as THREE from "three";
+'use client'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import * as THREE from 'three'
 
 const vertexShader = `
 varying vec2 vUv;
@@ -8,7 +8,7 @@ void main() {
   vUv = uv;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
 }
-`;
+`
 
 const fragmentShader = `
 precision highp float;
@@ -79,11 +79,11 @@ void main() {
   
   gl_FragColor = vec4(color, 1.0);
 }
-`;
+`
 
 function InnerScene({ fiber, drei }: { fiber: any; drei: any }) {
-  const { Canvas, useFrame, extend } = fiber;
-  const { shaderMaterial } = drei;
+  const { Canvas, useFrame, extend } = fiber
+  const { shaderMaterial } = drei
 
   const CPPNShaderMaterial = useMemo(
     () =>
@@ -93,20 +93,20 @@ function InnerScene({ fiber, drei }: { fiber: any; drei: any }) {
         fragmentShader
       ),
     []
-  );
+  )
 
   useMemo(() => {
-    extend({ CPPNShaderMaterial });
-  }, [extend, CPPNShaderMaterial]);
+    extend({ CPPNShaderMaterial })
+  }, [extend, CPPNShaderMaterial])
 
   function ShaderPlane() {
-    const materialRef = useRef<any>(null!);
+    const materialRef = useRef<any>(null!)
     useFrame((state: any) => {
-      if (!materialRef.current) return;
-      materialRef.current.iTime = state.clock.elapsedTime;
-      const { width, height } = state.size;
-      materialRef.current.iResolution.set(width, height);
-    });
+      if (!materialRef.current) return
+      materialRef.current.iTime = state.clock.elapsedTime
+      const { width, height } = state.size
+      materialRef.current.iResolution.set(width, height)
+    })
     return (
       <mesh position={[0, 0, -0.5]}>
         {/* Large plane to ensure full-viewport coverage */}
@@ -114,7 +114,7 @@ function InnerScene({ fiber, drei }: { fiber: any; drei: any }) {
         {/* TS typing provided via ambient declaration below */}
         <cPPNShaderMaterial ref={materialRef} side={THREE.DoubleSide} />
       </mesh>
-    );
+    )
   }
 
   const camera = useMemo(
@@ -125,42 +125,41 @@ function InnerScene({ fiber, drei }: { fiber: any; drei: any }) {
       far: 1000,
     }),
     []
-  );
+  )
 
   return (
     <Canvas
       camera={camera}
       gl={{ antialias: true, alpha: false }}
       dpr={[1, 2]}
-      style={{ width: "100%", height: "100%" }}
+      style={{ width: '100%', height: '100%' }}
     >
       <ShaderPlane />
     </Canvas>
-  );
+  )
 }
 
 export default function ShaderScene() {
-  const [mods, setMods] = useState<{ fiber: any; drei: any } | null>(null);
+  const [mods, setMods] = useState<{ fiber: any; drei: any } | null>(null)
 
   useEffect(() => {
-    let mounted = true;
-    Promise.all([
-      import("@react-three/fiber"),
-      import("@react-three/drei"),
-    ]).then(([fiber, drei]) => {
-      if (mounted) setMods({ fiber, drei });
-    });
+    let mounted = true
+    Promise.all([import('@react-three/fiber'), import('@react-three/drei')]).then(
+      ([fiber, drei]) => {
+        if (mounted) setMods({ fiber, drei })
+      }
+    )
     return () => {
-      mounted = false;
-    };
-  }, []);
+      mounted = false
+    }
+  }, [])
 
-  if (!mods) return null;
-  return <InnerScene fiber={mods.fiber} drei={mods.drei} />;
+  if (!mods) return null
+  return <InnerScene fiber={mods.fiber} drei={mods.drei} />
 }
 
-declare module "@react-three/fiber" {
+declare module '@react-three/fiber' {
   interface ThreeElements {
-    cPPNShaderMaterial: any;
+    cPPNShaderMaterial: any
   }
 }

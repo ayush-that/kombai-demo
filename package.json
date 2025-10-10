@@ -5,25 +5,32 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
-    "start": "next start"
+    "start": "next start",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint:format": "prettier --write . && next lint",
+    "prepare": "husky"
   },
   "dependencies": {
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
-    "next": "15.5.4",
-    "gsap": "^3.12.5",
-    "three": "^0.170.0",
     "@gsap/react": "^2.1.1",
     "@react-three/drei": "^9.121.6",
-    "@react-three/fiber": "^9.0.0"
+    "@react-three/fiber": "^9.0.0",
+    "gsap": "^3.12.5",
+    "next": "15.5.4",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "three": "^0.170.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.170.0",
-    "@tailwindcss/postcss": "^4",
-    "tailwindcss": "^4"
+    "husky": "^9.1.7",
+    "prettier": "^3.6.2",
+    "prettier-plugin-tailwindcss": "^0.6.14",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }

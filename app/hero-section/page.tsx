@@ -1,10 +1,10 @@
-"use client";
+'use client'
 
-import Hero from "@/components/hero-section/neural-network-hero";
+import Hero from '@/components/hero-section/neural-network-hero'
 
 export default function HeroSectionPage() {
   return (
-    <div className="w-screen h-screen flex flex-col relative">
+    <div className="relative flex h-screen w-screen flex-col">
       <Hero
         title="Lorem ipsum dolor sit amet."
         description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
@@ -12,11 +12,11 @@ export default function HeroSectionPage() {
         badgeLabel="Live"
         showBadge={false}
         ctaButtons={[
-          { text: "Lorem ipsum", href: "#build", primary: true },
-          { text: "Dolor sit amet", href: "#examples" },
+          { text: 'Lorem ipsum', href: '#build', primary: true },
+          { text: 'Dolor sit amet', href: '#examples' },
         ]}
         microDetails={[]}
       />
     </div>
-  );
+  )
 }
